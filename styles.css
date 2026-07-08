@@ -384,8 +384,15 @@ table.heat tr:hover td.ename { color: var(--accent); }
   .fact-card { padding: 13px 14px; }
 }
 
+/* UN Women logo: only on the printed performance card */
+.print-unwomen { display: none; }
+
 /* ---------- print: one-page performance card ---------- */
 @media print {
+  .print-unwomen {
+    display: block; position: fixed;
+    right: 15mm; bottom: 8mm; width: 30mm; height: auto;
+  }
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
