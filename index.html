@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN-SWAP 3.0 Dashboard — Gender equality performance across the UN system</title>
+  <meta name="description" content="Ratings of UN entities against the 18 performance indicators of UN-SWAP 3.0, the UN system-wide accountability framework for gender equality and the empowerment of women.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2025.4">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">
+          <span style="background:var(--c-ex)"></span>
+          <span style="background:var(--c-me)"></span>
+          <span style="background:var(--c-ap)"></span>
+          <span style="background:var(--c-mi)"></span>
+        </span>
+        <span class="brand-name">UN-SWAP 3.0 <small>dashboard</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="#/" data-nav="home">Overview</a>
+        <a href="#/indicators" data-nav="indicators">Indicators</a>
+        <a href="#/entities" data-nav="entities">Entities</a>
+        <a href="#/compare" data-nav="compare">Compare</a>
+        <a href="#/facts" data-nav="facts">Facts</a>
+        <a href="#/explorer" data-nav="explorer">Explorer</a>
+        <a href="#/about" data-nav="about">About</a>
+      </nav>
+      <select id="year-pick" class="year-pick" aria-label="Reporting year"></select>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>UN-SWAP 3.0 — UN System-wide Action Plan on Gender Equality and the Empowerment of Women.</p>
+      <span class="spacer"></span>
+      <p><a href="https://gendercoordinationandmainstreaming.unwomen.org/un-swap" target="_blank" rel="noopener">About the framework</a> · UN Women, UN-SWAP secretariat</p>
+    </div>
+  </footer>
+
+  <script src="data.js?v=2025.4"></script>
+  <script src="names.js?v=2025.4"></script>
+  <script src="requirements.js?v=2025.4"></script>
+  <script src="logo.js?v=2025.4"></script>
+  <script src="app.js?v=2025.4"></script>
+</body>
+</html>
