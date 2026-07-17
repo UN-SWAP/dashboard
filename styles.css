@@ -132,6 +132,7 @@ nav.main-nav a.active { color: var(--ink); font-weight: 600; border-bottom-color
 .hbar .seg.mi { background: var(--c-mi); }
 .hbar .seg.na { background: var(--c-na); }
 .hbar .seg.nr { background: repeating-linear-gradient(45deg, var(--c-nr), var(--c-nr) 3px, #fff 3px, #fff 6px); }
+.hbar .seg.ur { background: repeating-linear-gradient(90deg, #E5E1D8, #E5E1D8 3px, #fff 3px, #fff 6px); }
 
 .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; font-size: 12px; color: var(--muted); }
 .legend .key { display: inline-flex; align-items: center; gap: 5px; }
@@ -162,6 +163,7 @@ nav.main-nav a.active { color: var(--ink); font-weight: 600; border-bottom-color
 .chip.mi { background: var(--c-mi); color: #fff; }
 .chip.na { background: var(--c-na); color: #4d453d; }
 .chip.nr { background: var(--c-nr); color: #8b8478; }
+.chip.ur { background: #fff; color: #8b8478; border: 1.5px dashed #b4ada2; }
 
 /* ---------- cards & grids ---------- */
 .card {
@@ -322,6 +324,7 @@ table.heat tr:hover td.ename { color: var(--accent); }
 .cell.ap { background: var(--c-ap); } .cell.mi { background: var(--c-mi); }
 .cell.na { background: var(--c-na); }
 .cell.nr { background: repeating-linear-gradient(45deg, var(--c-nr), var(--c-nr) 3px, #fff 3px, #fff 6px); }
+.cell.ur { background: repeating-linear-gradient(90deg, #E5E1D8, #E5E1D8 3px, #fff 3px, #fff 6px); border: 1px dashed #b4ada2; }
 
 /* ---------- about ---------- */
 .prose { max-width: 720px; font-size: 15px; }

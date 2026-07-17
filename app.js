@@ -5,15 +5,20 @@
   const D = window.SWAP_DATA;
   let YEAR = D.latestYear;
 
-  const RATINGS = ['EX', 'ME', 'AP', 'MI', 'NA', 'NR'];
+  const RATINGS = ['EX', 'ME', 'AP', 'MI', 'NA', 'UR', 'NR'];
   const RATED = ['EX', 'ME', 'AP', 'MI']; // codes that count toward percentages
   const LABEL = {
     EX: 'Exceeds', ME: 'Meets', AP: 'Approaches',
-    MI: 'Missing', NA: 'Not Applicable', NR: 'Not Reported'
+    MI: 'Missing', NA: 'Not Applicable', UR: 'Under review', NR: 'Not Reported'
   };
   const LABEL_FULL = {
     EX: 'Exceeds requirements', ME: 'Meets requirements', AP: 'Approaches requirements',
-    MI: 'Missing', NA: 'Not Applicable', NR: 'Not Reported'
+    MI: 'Missing', NA: 'Not Applicable', UR: 'Under review — rating not yet final',
+    NR: 'Not Reported'
+  };
+  const PATTERN_BG = {
+    NR: 'repeating-linear-gradient(45deg,var(--c-nr),var(--c-nr) 3px,#fff 3px,#fff 6px)',
+    UR: 'repeating-linear-gradient(90deg,#E5E1D8,#E5E1D8 3px,#fff 3px,#fff 6px)'
   };
 
   const app = document.getElementById('app');
@@ -108,9 +113,7 @@
       const p = counts[c] / total * 100;
       const lbl = p >= 10 ? `${LABEL[c]}: <strong>${counts[c]}</strong>`
         : p >= 4 ? `<strong>${counts[c]}</strong>` : '';
-      const bg = c === 'NR'
-        ? 'repeating-linear-gradient(45deg,var(--c-nr),var(--c-nr) 3px,#fff 3px,#fff 6px)'
-        : `var(--c-${c.toLowerCase()})`;
+      const bg = PATTERN_BG[c] || `var(--c-${c.toLowerCase()})`;
       return `<div class="bigseg" style="flex:${counts[c]}" title="${LABEL_FULL[c]}: ${counts[c]}">
         <div class="bigseg-block" style="background:${bg}"></div>
         <div class="bigseg-lbl">${lbl}</div>
@@ -120,11 +123,15 @@
   }
 
   function legend(withNR) {
-    const codes = withNR ? RATINGS : RATINGS.slice(0, 5);
+    // "Under review" only appears in the legend when it exists in the data
+    const hasUR = D.entities.some(e => {
+      const r = e.ratings[YEAR];
+      return r && Object.values(r).includes('UR');
+    });
+    let codes = withNR ? RATINGS : RATINGS.slice(0, 5);
+    codes = codes.filter(c => c !== 'UR' || hasUR);
     return `<div class="legend">${codes.map(c => {
-      const bg = c === 'NR'
-        ? 'background:repeating-linear-gradient(45deg,var(--c-nr),var(--c-nr) 3px,#fff 3px,#fff 6px)'
-        : `background:var(--c-${c.toLowerCase()})`;
+      const bg = PATTERN_BG[c] ? `background:${PATTERN_BG[c]}` : `background:var(--c-${c.toLowerCase()})`;
       return `<span class="key"><span class="sw" style="${bg}"></span>${LABEL[c]}</span>`;
     }).join('')}</div>`;
   }
@@ -329,7 +336,7 @@
       </div>
       <div class="section wrap">
         <div class="filters">
-          <input type="text" id="ent-filter" placeholder="Filter by name or acronym…">
+          <input type="text" id="ent-filter" placeholder="Filter entities…">
           <select id="ent-type"><option value="">All types</option>${TYPES.map(t => `<option>${esc(t)}</option>`).join('')}</select>
           <select id="ent-sort">
             <option value="name">Sort: name</option>
@@ -726,6 +733,7 @@
             <tr><td>${chip('AP')}</td><td>The entity is approaching, but does not yet meet, the requirements.</td></tr>
             <tr><td>${chip('MI')}</td><td>The elements required by the indicator are missing.</td></tr>
             <tr><td>${chip('NA')}</td><td>The indicator is not applicable to the entity's mandate or business model.</td></tr>
+            <tr><td>${chip('UR')}</td><td>The rating for this indicator is not yet final. It is excluded from percentage calculations until confirmed.</td></tr>
             <tr><td>${chip('NR')}</td><td>The entity did not submit a rating for this indicator.</td></tr>
           </tbody>
         </table>
