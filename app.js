@@ -329,7 +329,7 @@
       </div>
       <div class="section wrap">
         <div class="filters">
-          <input type="text" id="ent-filter" placeholder="Filter by name…">
+          <input type="text" id="ent-filter" placeholder="Filter by name or acronym…">
           <select id="ent-type"><option value="">All types</option>${TYPES.map(t => `<option>${esc(t)}</option>`).join('')}</select>
           <select id="ent-sort">
             <option value="name">Sort: name</option>
@@ -351,7 +351,8 @@
       const t = document.getElementById('ent-type').value;
       const sort = document.getElementById('ent-sort').value;
       let list = rows.filter(r =>
-        (!q || r.e.name.toLowerCase().includes(q)) && (!t || r.e.type === t));
+        (!q || r.e.name.toLowerCase().includes(q) || fullName(r.e.name).toLowerCase().includes(q))
+        && (!t || r.e.type === t));
       if (sort === 'me') list = list.slice().sort((a, b) => (b.s.mePct ?? -1) - (a.s.mePct ?? -1));
       if (sort === 'ex') list = list.slice().sort((a, b) => (b.s.exPct ?? -1) - (a.s.exPct ?? -1));
       tbody.innerHTML = list.map(r => `
@@ -741,6 +742,15 @@
         (${D.entities.length} entities). As future reporting cycles are completed, additional years
         and trend views will be added. For questions about the data, contact the UN-SWAP secretariat
         at UN Women: <a href="mailto:unswap.helpdesk@unwomen.org">unswap.helpdesk@unwomen.org</a>.</p>
+
+        <h2>Disclaimer</h2>
+        <p>This dashboard is an independent visualization tool piloted to present publicly available
+        UN-SWAP 3.0 performance ratings in a more accessible and interactive format. It is not an
+        official UN Women or UN-SWAP secretariat website.</p>
+        <p>While every effort has been made to ensure the accuracy of the data presented, discrepancies
+        may exist due to timing of data updates or interpretation. In case of any conflict between this
+        dashboard and official UN-SWAP reporting, the official reporting should be considered
+        authoritative.</p>
       </div>`;
   }
 

@@ -1166,7 +1166,7 @@ window.SWAP_DATA = {
      "PI6": "MI",
      "PI7": "EX",
      "PI8": "EX",
-     "PI9": "EX",
+     "PI9": "AP",
      "PI10": "AP",
      "PI11": "ME",
      "PI12": "ME",
@@ -1314,6 +1314,32 @@ window.SWAP_DATA = {
    }
   },
   {
+   "name": "UN Tourism",
+   "type": "Technical focus",
+   "ratings": {
+    "2025": {
+     "PI18": "AP",
+     "PI1": "EX",
+     "PI2": "ME",
+     "PI3": "EX",
+     "PI4": "NA",
+     "PI5": "NA",
+     "PI6": "AP",
+     "PI7": "AP",
+     "PI8": "AP",
+     "PI9": "MI",
+     "PI10": "MI",
+     "PI11": "AP",
+     "PI12": "AP",
+     "PI13": "AP",
+     "PI14": "AP",
+     "PI15": "ME",
+     "PI16": "AP",
+     "PI17": "ME"
+    }
+   }
+  },
+  {
    "name": "UN Women",
    "type": "Funds and Programmes",
    "ratings": {
@@ -1327,7 +1353,7 @@ window.SWAP_DATA = {
      "PI6": "EX",
      "PI7": "EX",
      "PI8": "EX",
-     "PI9": "MI",
+     "PI9": "AP",
      "PI10": "ME",
      "PI11": "ME",
      "PI12": "EX",
@@ -2194,32 +2220,6 @@ window.SWAP_DATA = {
      "PI14": "ME",
      "PI15": "ME",
      "PI16": "EX",
-     "PI17": "ME"
-    }
-   }
-  },
-  {
-   "name": "UNWTO",
-   "type": "Technical focus",
-   "ratings": {
-    "2025": {
-     "PI18": "AP",
-     "PI1": "EX",
-     "PI2": "ME",
-     "PI3": "EX",
-     "PI4": "NA",
-     "PI5": "NA",
-     "PI6": "AP",
-     "PI7": "AP",
-     "PI8": "AP",
-     "PI9": "MI",
-     "PI10": "MI",
-     "PI11": "AP",
-     "PI12": "AP",
-     "PI13": "AP",
-     "PI14": "AP",
-     "PI15": "ME",
-     "PI16": "AP",
      "PI17": "ME"
     }
    }

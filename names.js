@@ -71,7 +71,7 @@ window.ENTITY_NAMES = {
   "UNSSC": "United Nations System Staff College",
   "UNU": "United Nations University",
   "UNV": "United Nations Volunteers programme",
-  "UNWTO": "World Tourism Organization",
+  "UN Tourism": "World Tourism Organization",
   "UPU": "Universal Postal Union",
   "WFP": "World Food Programme",
   "WHO": "World Health Organization",
