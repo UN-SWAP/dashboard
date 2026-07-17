@@ -428,8 +428,7 @@
       <div class="section wrap">
         <div class="section-head"><h2>Ratings by indicator</h2></div>
         ${areaBlocks}
-      </div>
-      ${window.UNWOMEN_LOGO_URI ? `<img class="print-unwomen" src="${window.UNWOMEN_LOGO_URI}" alt="UN Women">` : ''}`;
+      </div>`;
   }
 
   function pageCompare(params) {
