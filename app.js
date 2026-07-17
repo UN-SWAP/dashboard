@@ -445,6 +445,10 @@
       <div class="page-head wrap">
         <div class="crumb"><a href="#/">Overview</a> / Compare</div>
         <h1>Compare performance</h1>
+        <p class="fullname" style="font-size:14.5px; max-width:780px">Entities across the UN system
+        differ widely in mandate, business model, and operational size, as does the applicability of
+        individual indicators. Comparisons on this page are best viewed as opportunities for peer
+        learning and for identifying effective approaches adopted elsewhere.</p>
         <div class="meta">
           <div class="mode-tabs">
             <button class="${mode === 'entity' ? 'active' : ''}" data-go="compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}">Entity vs Entity</button>
@@ -743,6 +747,9 @@
         Both are calculated on rated indicators only — ratings of Not Applicable and indicators that were
         not reported are excluded from the denominator. Not Applicable ratings are always shown in
         the charts as they provide important context on the distinct mandates of individual entities.</p>
+        <p>Ratings and comparisons should always be read in the context of each entity's mandate,
+        business model and operational size. This dashboard is designed to support transparency and
+        peer learning across the UN system.</p>
 
         <h2>Data</h2>
         <p>The data on this site reflects the ${D.latestYear} UN-SWAP 3.0 reporting cycle
