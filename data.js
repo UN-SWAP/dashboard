@@ -1347,7 +1347,7 @@ window.SWAP_DATA = {
      "PI18": "EX",
      "PI1": "EX",
      "PI2": "EX",
-     "PI3": "ME",
+     "PI3": "EX",
      "PI4": "EX",
      "PI5": "EX",
      "PI6": "EX",

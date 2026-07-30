@@ -775,29 +775,22 @@
   document.addEventListener('click', ev => {
     const pr = ev.target.closest('[data-print]');
     if (pr) {
-  const entityName = pr.getAttribute('data-print') || 'unknown';
-
-  // Track when a user opens the PDF/print dialog
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', 'pdf_export_started', {
-      entity_name: entityName,
-      page_location: window.location.href,
-      page_title: document.title
-    });
-  }
-
-  const prev = document.title;
-  document.title = `${YEAR} ${entityName} UN-SWAP`;
-
-  const restore = () => {
-    document.title = prev;
-    window.removeEventListener('afterprint', restore);
-  };
-
-  window.addEventListener('afterprint', restore);
-  window.print();
-  return;
-}
+      const entityName = pr.getAttribute('data-print') || 'unknown';
+      // analytics: track when a user opens the PDF/print dialog — keep on update
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'pdf_export_started', {
+          entity_name: entityName,
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      }
+      const prev = document.title;
+      document.title = `${YEAR} ${entityName} UN-SWAP`;
+      const restore = () => { document.title = prev; window.removeEventListener('afterprint', restore); };
+      window.addEventListener('afterprint', restore);
+      window.print();
+      return;
+    }
     const el = ev.target.closest('[data-go]');
     if (el && !el.disabled) { go(el.getAttribute('data-go')); }
   });
