@@ -1288,32 +1288,6 @@ window.SWAP_DATA = {
    }
   },
   {
-   "name": "UN Global Compact",
-   "type": "Secretariat",
-   "ratings": {
-    "2025": {
-     "PI18": "NR",
-     "PI1": "NR",
-     "PI2": "NR",
-     "PI3": "NR",
-     "PI4": "NR",
-     "PI5": "NR",
-     "PI6": "NR",
-     "PI7": "NR",
-     "PI8": "NR",
-     "PI9": "NR",
-     "PI10": "NR",
-     "PI11": "NR",
-     "PI12": "NR",
-     "PI13": "NR",
-     "PI14": "NR",
-     "PI15": "NR",
-     "PI16": "NR",
-     "PI17": "NR"
-    }
-   }
-  },
-  {
    "name": "UN Tourism",
    "type": "Technical focus",
    "ratings": {

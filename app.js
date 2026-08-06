@@ -122,14 +122,22 @@
     return `<div class="bigbar">${cols}</div>`;
   }
 
-  function legend(withNR) {
-    // "Under review" only appears in the legend when it exists in the data
-    const hasUR = D.entities.some(e => {
-      const r = e.ratings[YEAR];
-      return r && Object.values(r).includes('UR');
-    });
-    let codes = withNR ? RATINGS : RATINGS.slice(0, 5);
-    codes = codes.filter(c => c !== 'UR' || hasUR);
+  /* rating codes that actually occur anywhere in the given year */
+  function codesInYear(year) {
+    const seen = new Set();
+    D.entities.forEach(e => D.indicators.forEach(pi => seen.add(rating(e, pi.id, year))));
+    return seen;
+  }
+
+  function legend(withStatus) {
+    // EX / ME / AP / MI / NA are the five ratings of the framework and are always
+    // listed, so the colour scale is fully explained. "Under review" and "Not
+    // Reported" are reporting-status markers, not ratings — they appear only when
+    // the data actually contains them, so the key never implies that some entity
+    // is in a state that none is in.
+    const present = codesInYear(YEAR);
+    let codes = withStatus ? RATINGS : RATINGS.slice(0, 5);
+    codes = codes.filter(c => (c !== 'UR' && c !== 'NR') || present.has(c));
     return `<div class="legend">${codes.map(c => {
       const bg = PATTERN_BG[c] ? `background:${PATTERN_BG[c]}` : `background:var(--c-${c.toLowerCase()})`;
       return `<span class="key"><span class="sw" style="${bg}"></span>${LABEL[c]}</span>`;
@@ -441,8 +449,21 @@
     if (mode === 'entity') body = compareEntityBody(a, b);
     else body = compareBenchBody(a);
 
+    // print-only card header, mirroring the entity performance card
+    const eaHead = byName[a];
+    const printHead = (mode === 'bench' && eaHead) ? `
+      <div class="page-head wrap print-only">
+        <h1>${esc(eaHead.name)}</h1>
+        ${fullName(eaHead.name) ? `<p class="fullname">${esc(fullName(eaHead.name))}</p>` : ''}
+        <div class="meta">
+          <span class="tag">${esc(eaHead.type)}</span>
+          <span class="tag">UN-SWAP 3.0 · ${YEAR}</span>
+          <span class="tag">Comparison with Entity Type and UN System</span>
+        </div>
+      </div>` : '';
+
     app.innerHTML = `
-      <div class="page-head wrap">
+      <div class="page-head wrap no-print">
         <div class="crumb"><a href="#/">Overview</a> / Compare</div>
         <h1>Compare performance</h1>
         <p class="fullname" style="font-size:14.5px; max-width:780px">Entities across the UN system
@@ -456,6 +477,7 @@
           </div>
         </div>
       </div>
+      ${printHead}
       <div class="section wrap">${body}</div>`;
 
     const selA = document.getElementById('cmp-a');
@@ -532,8 +554,10 @@
   }
 
   function compareBenchBody(a) {
-    let html = `<div class="pick-row">${entitySelect('cmp-a', a, 'Select your entity…')}</div>`;
     const ea = byName[a];
+    let html = `<div class="pick-row">${entitySelect('cmp-a', a, 'Select your entity…')}
+      ${ea ? `<button class="btn" data-print="${esc(ea.name)}" data-print-suffix="comparison">Download comparison card (PDF)</button>` : ''}
+    </div>`;
     if (!ea) {
       return html + `<p style="margin-top:22px;color:var(--muted)">Select an entity to compare it with its Entity Type and the UN System as a whole.</p>`;
     }
@@ -574,7 +598,11 @@
         <thead><tr><th></th><th>Indicator</th><th>${esc(ea.name)}</th><th>${esc(ea.type)}</th><th>UN System</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
-      ${legend(true)}`;
+      ${legend(true)}
+      <p class="print-only print-note">Entities across the UN system vary widely in their mandates,
+      operating models, and size, as does the applicability of individual indicators. Comparisons are
+      best viewed as opportunities for peer learning and for identifying effective approaches adopted
+      elsewhere. Percentages exclude ratings of Not Applicable.</p>`;
     return html;
   }
 
@@ -776,16 +804,18 @@
     const pr = ev.target.closest('[data-print]');
     if (pr) {
       const entityName = pr.getAttribute('data-print') || 'unknown';
+      const suffix = pr.getAttribute('data-print-suffix') || '';
       // analytics: track when a user opens the PDF/print dialog — keep on update
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'pdf_export_started', {
           entity_name: entityName,
+          card_type: suffix || 'performance',
           page_location: window.location.href,
           page_title: document.title
         });
       }
       const prev = document.title;
-      document.title = `${YEAR} ${entityName} UN-SWAP`;
+      document.title = `${YEAR} ${entityName} UN-SWAP${suffix ? ' ' + suffix : ''}`;
       const restore = () => { document.title = prev; window.removeEventListener('afterprint', restore); };
       window.addEventListener('afterprint', restore);
       window.print();
