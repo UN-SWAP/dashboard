@@ -254,6 +254,7 @@
   function pageIndicator(piId) {
     const pi = D.indicators.find(p => p.id === piId);
     if (!pi) { app.innerHTML = '<div class="wrap section"><p>Indicator not found.</p></div>'; return; }
+    const g = (window.PI_GUIDANCE || {})[pi.id] || {};
     const s = systemStats(YEAR, pi.id);
     const idx = D.indicators.indexOf(pi);
     const prev = D.indicators[idx - 1], next = D.indicators[idx + 1];
@@ -286,6 +287,7 @@
       <div class="page-head wrap">
         <div class="crumb"><a href="#/">Overview</a> / Indicators / ${pi.id}</div>
         <h1>${pi.id} — ${esc(pi.name)}</h1>
+        ${g.purpose ? `<p class="fullname" style="font-size:15px">${esc(g.purpose)}</p>` : ''}
         <div class="meta"><span class="tag">${esc(pi.area)}</span><span class="tag">${YEAR}</span></div>
         <div class="actions">
           <select id="pi-jump" class="year-pick" style="border-radius:8px" aria-label="Jump to indicator">
@@ -294,6 +296,7 @@
           ${prev ? `<button class="btn" data-go="indicator/${prev.id}">← ${prev.id}</button>` : ''}
           ${next ? `<button class="btn" data-go="indicator/${next.id}">${next.id} →</button>` : ''}
           <button class="btn" data-go="facts/${pi.id}">Facts for this indicator</button>
+          ${g.url ? `<a class="btn" href="${g.url}" target="_blank" rel="noopener">Official guidance (PDF) ↗</a>` : ''}
         </div>
       </div>
 
